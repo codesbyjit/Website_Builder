@@ -1,0 +1,55 @@
+export interface User {
+  _id: string;
+  email: string;
+  password: string;
+  createdAt: string;
+}
+
+export interface Template {
+  id: string;
+  name: string;
+  description: string;
+  category: 'portfolio' | 'business' | 'blog' | 'ecommerce' | 'landing';
+  thumbnail: string;
+  features: string[];
+  formSchema: FormField[];
+}
+
+export interface FormField {
+  id: string;
+  type: 'text' | 'textarea' | 'email' | 'url' | 'select' | 'image' | 'color';
+  label: string;
+  placeholder?: string;
+  required: boolean;
+  options?: string[];
+  step?: number;
+}
+
+export interface Site {
+  id: string;
+  userId: string;
+  templateId: string;
+  templateName: string;
+  siteName: string;
+  details: Record<string, string>;
+  status: 'draft' | 'building' | 'deployed' | 'failed';
+  previewUrl?: string;
+  liveUrl?: string;
+  vercelProjectId?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateSiteRequest {
+  templateId: string;
+  siteName: string;
+  details: Record<string, string>;
+}
+
+export interface CreateSiteResponse {
+  success: boolean;
+  siteId: string;
+  status: string;
+  previewUrl?: string;
+  liveUrl?: string;
+}
