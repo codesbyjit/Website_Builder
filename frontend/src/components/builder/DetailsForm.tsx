@@ -28,10 +28,13 @@ const DetailsForm = ({ template }: DetailsFormProps) => {
 
   const allSteps = [
     { id: 'basic', label: 'Basic Info', fields: ['siteName', 'companyName', 'tagline', 'brokerageName', 'licenseNumber'] },
-    { id: 'hero', label: 'Hero Section', fields: ['heroTitle', 'heroSubtitle'] },
-    { id: 'contact', label: 'Contact', fields: ['email', 'phone', 'city', 'province', 'address'] },
+    { id: 'hero', label: 'Hero Section', fields: ['heroImage', 'heroTitle', 'heroSubtitle'] },
+    { id: 'stats', label: 'Stats', fields: ['homesSOLD', 'yearsExp', 'rating'] },
+    { id: 'areas', label: 'Areas', fields: ['neighborhood1', 'price1', 'neighborhood2', 'price2'] },
+    { id: 'reviews', label: 'Reviews', fields: ['review1Name', 'review1Text', 'review1Type', 'review2Name', 'review2Text', 'review2Type'] },
+    { id: 'contact', label: 'Contact', fields: ['email', 'phone', 'city', 'province'] },
     { id: 'about', label: 'About & Services', fields: ['about', 'services'] },
-    { id: 'customize', label: 'Customize', fields: ['primaryColor', 'accentColor'] },
+    { id: 'customize', label: 'Customize', fields: ['primaryColor'] },
   ];
 
   const steps = allSteps.filter(step => 

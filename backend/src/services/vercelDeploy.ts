@@ -11,48 +11,50 @@ function generateRealEstateHTML(details: Record<string, string>): string {
     companyName = 'Sarah Mitchell',
     tagline = 'Your Trusted Real Estate Partner',
     brokerageName = 'RealtyGinie',
-    teamName = '',
     licenseNumber = '',
+    heroImage = '',
     email = 'sarah@realestate.com',
     phone = '(604) 555-0192',
     city = 'Vancouver',
     province = 'BC',
     heroTitle = 'Find Your Home. Move with Confidence.',
     heroSubtitle = 'Part of BC\'s #1-ranked team. Every buyer and seller gets the speed, strategy, and personal attention that gets results.',
-    services = 'Home Buying\nHome Selling\nInvestment Properties\nFirst-Time Buyers',
-    about = 'With a passion for real estate and a deep understanding of the local market, I\'m dedicated to making your home buying or selling experience exceptional. I bring the resources and expertise of a leading team combined with the personalized attention you deserve.',
-    primaryColor = '#C9A96E',
-    accentDark = '#0a0a0f',
     homesSOLD = '80+',
     yearsExp = '10+',
     rating = '5.0',
-    teamRank = '#1',
     neighborhood1 = 'West Side',
     neighborhood2 = 'East Side',
-    neighborhood3 = 'Burnaby',
-    neighborhood4 = 'Surrey',
-    neighborhood5 = 'Richmond',
-    neighborhood6 = 'New Westminster',
-    price1 = '$2,100,000',
-    price2 = '$1,400,000',
-    price3 = '$1,200,000',
-    price4 = '$950,000',
-    price5 = '$1,300,000',
-    price6 = '$850,000',
+    neighborhood3 = '',
+    neighborhood4 = '',
+    neighborhood5 = '',
+    neighborhood6 = '',
+    price1 = '$1,500,000',
+    price2 = '$1,200,000',
+    price3 = '',
+    price4 = '',
+    price5 = '',
+    price6 = '',
     review1Name = 'Nirmala P.',
-    review1Text = 'She patiently visited multiple homes with us, taking the time to clearly explain the pros and cons of each option. She never rushed us and always put our needs first.',
+    review1Text = 'She patiently visited multiple homes with us, taking the time to clearly explain the pros and cons of each option.',
     review1Type = 'House',
     review2Name = 'Ashwani J.',
-    review2Text = 'Finding the right property can be overwhelming, but she made the entire process smooth and stress-free. Incredibly knowledgeable, responsive, and always had our best interests at heart.',
+    review2Text = 'Finding the right property can be overwhelming, but she made the entire process smooth and stress-free.',
     review2Type = 'Condo',
-    review3Name = 'Anna C.',
-    review3Text = 'She was professional, knowledgeable, and always available to answer our questions. Made the whole process smooth and stress-free. We would highly recommend her to anyone.',
-    review3Type = 'House',
-    instagramHandle = '',
+    review3Name = '',
+    review3Text = '',
+    review3Type = '',
+    agentPhotoUrl = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80',
     googleReviewsUrl = '#',
-    agentPhotoUrl = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80&auto=format',
-    heroPhotoUrl = 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80&auto=format',
+    instagramHandle = '',
+    teamName = '',
+    teamRank = '#1',
+    accentDark = '#0a0a0f',
+    services = 'Home Buying\nHome Selling\nInvestment Properties',
+    about = 'With a passion for real estate and a deep understanding of the local market, I\'m dedicated to making your home buying or selling experience exceptional.',
+    primaryColor = '#2563eb',
   } = details;
+
+  const heroPhotoUrl = heroImage || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80&auto=format';
 
   const provinceName: Record<string, string> = {
     ON: 'Ontario', BC: 'British Columbia', AB: 'Alberta', QC: 'Quebec',
@@ -586,6 +588,9 @@ function generateRealEstateHTML(details: Record<string, string>): string {
           <span class="logo-sub">Real Estate</span>
         </a>
         <nav>
+          <a href="index.html">Home</a>
+          <a href="listings.html">Listings</a>
+          <a href="blog.html">Blog</a>
           <a href="#about">About</a>
           <a href="#services">Services</a>
           <a href="#reviews">Reviews</a>
@@ -1052,6 +1057,188 @@ function generateRealEstateHTML(details: Record<string, string>): string {
 </html>`;
 }
 
+function generateListingsPage(details: Record<string, string>): string {
+  const { companyName = 'Real Estate', city = 'Toronto', province = 'ON', primaryColor = '#2563eb' } = details;
+  const provinceName: Record<string, string> = { ON: 'Ontario', BC: 'British Columbia', AB: 'Alberta', QC: 'Quebec' };
+  const provFull = provinceName[province] || province;
+
+  const listings = [
+    { title: 'Luxury Downtown Penthouse', price: '$2,450,000', beds: 3, baths: 3, sqft: '2,800', address: '100 King St W, Toronto', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80', type: 'Condo' },
+    { title: 'Modern Family Home', price: '$1,850,000', beds: 5, baths: 4, sqft: '3,200', address: '45 Maple Avenue, North York', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', type: 'House' },
+    { title: 'Cozy Townhouse', price: '$975,000', beds: 3, baths: 2, sqft: '1,650', address: '88 Oak Street, Scarborough', image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80', type: 'Townhouse' },
+    { title: 'Waterfront Condo', price: '$1,250,000', beds: 2, baths: 2, sqft: '1,400', address: '220 Lakeshore Blvd, Toronto', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80', type: 'Condo' },
+    { title: 'Executive Estate', price: '$3,200,000', beds: 6, baths: 5, sqft: '4,500', address: '15 Park Lane, Richmond Hill', image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80', type: 'House' },
+    { title: 'Starter Home', price: '$725,000', beds: 2, baths: 1, sqft: '950', address: '67 Cedar Road, Mississauga', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80', type: 'House' },
+  ];
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Listings | ${companyName}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --primary: ${primaryColor}; --primary-dark: ${primaryColor}dd; --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-400: #9ca3af; --gray-600: #4b5563; --gray-800: #1f2937; }
+    body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--gray-600); background: white; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    a { text-decoration: none; color: inherit; }
+    header { background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
+    .logo { font-size: 22px; font-weight: 800; color: var(--primary); }
+    nav { display: flex; gap: 28px; }
+    nav a { font-size: 15px; font-weight: 500; color: var(--gray-600); transition: color 0.2s; }
+    nav a:hover { color: var(--primary); }
+    .header-cta { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; }
+    .page-hero { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 80px 0; text-align: center; }
+    .page-hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 16px; }
+    .page-hero p { font-size: 18px; opacity: 0.9; }
+    .filters { background: var(--gray-50); padding: 24px 0; border-bottom: 1px solid var(--gray-200); }
+    .filters-inner { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .filters select { padding: 12px 16px; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 14px; min-width: 160px; background: white; }
+    .filters .count { font-size: 14px; color: var(--gray-600); margin-left: auto; }
+    .listings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 32px; padding: 48px 0; }
+    .listing-card { border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; transition: all 0.3s; }
+    .listing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+    .listing-img { height: 240px; background-size: cover; background-position: center; position: relative; }
+    .listing-tag { position: absolute; top: 16px; left: 16px; background: var(--primary); color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+    .listing-content { padding: 24px; }
+    .listing-price { font-size: 28px; font-weight: 800; color: var(--gray-800); margin-bottom: 8px; }
+    .listing-title { font-size: 18px; font-weight: 600; color: var(--gray-800); margin-bottom: 8px; }
+    .listing-address { font-size: 14px; color: var(--gray-400); margin-bottom: 16px; }
+    .listing-stats { display: flex; gap: 20px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
+    .listing-stat { font-size: 14px; color: var(--gray-600); }
+    .listing-stat strong { color: var(--gray-800); }
+    footer { background: var(--gray-800); color: white; padding: 40px 0; text-align: center; }
+    footer p { opacity: 0.6; font-size: 14px; }
+    @media (max-width: 768px) { nav { display: none; } .page-hero h1 { font-size: 32px; } .listings-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">${companyName}</a>
+        <nav><a href="index.html">Home</a><a href="listings.html">Listings</a><a href="blog.html">Blog</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></nav>
+        <a href="index.html#contact" class="header-cta">Contact Us</a>
+      </div>
+    </div>
+  </header>
+  <section class="page-hero">
+    <div class="container"><h1>Property Listings</h1><p>Browse our available properties in ${city}, ${provFull}</p></div>
+  </section>
+  <section class="filters">
+    <div class="container">
+      <div class="filters-inner">
+        <select><option>All Types</option><option>House</option><option>Condo</option><option>Townhouse</option></select>
+        <select><option>All Prices</option><option>Under $1M</option><option>$1M - $2M</option><option>$2M - $3M</option><option>$3M+</option></select>
+        <select><option>All Bedrooms</option><option>2+</option><option>3+</option><option>4+</option><option>5+</option></select>
+        <span class="count">${listings.length} properties found</span>
+      </div>
+    </div>
+  </section>
+  <section class="listings">
+    <div class="container">
+      <div class="listings-grid">
+        ${listings.map(l => `<div class="listing-card"><div class="listing-img" style="background-image: url('${l.image}')"><span class="listing-tag">${l.type}</span></div><div class="listing-content"><div class="listing-price">${l.price}</div><div class="listing-title">${l.title}</div><div class="listing-address">${l.address}, ${city}</div><div class="listing-stats"><span class="listing-stat"><strong>${l.beds}</strong> Beds</span><span class="listing-stat"><strong>${l.baths}</strong> Baths</span><span class="listing-stat"><strong>${l.sqft}</strong> sqft</span></div></div></div>`).join('')}
+      </div>
+    </div>
+  </section>
+  <footer><div class="container"><p>&copy; ${new Date().getFullYear()} ${companyName}. All rights reserved.</p></div></footer>
+</body>
+</html>`;
+}
+
+function generateBlogPage(details: Record<string, string>): string {
+  const { companyName = 'Real Estate', city = 'Toronto', province = 'ON', primaryColor = '#2563eb' } = details;
+  const provinceName: Record<string, string> = { ON: 'Ontario', BC: 'British Columbia', AB: 'Alberta', QC: 'Quebec' };
+  const provFull = provinceName[province] || province;
+
+  const posts = [
+    { title: 'Top 10 Tips for First-Time Home Buyers', excerpt: 'Buying your first home is one of the biggest decisions you\'ll make. Here are our top tips to help you navigate the process with confidence.', date: 'March 10, 2026', image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80', category: 'Buying' },
+    { title: '2026 Real Estate Market Trends', excerpt: 'The real estate market continues to evolve. Here\'s what buyers and sellers need to know about the current landscape.', date: 'February 28, 2026', image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80', category: 'Market' },
+    { title: 'How to Stage Your Home for a Quick Sale', excerpt: 'First impressions matter. Learn how to stage your home to attract more buyers and get top dollar for your property.', date: 'February 15, 2026', image: 'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=80', category: 'Selling' },
+    { title: 'Best Neighborhoods for Families in Toronto', excerpt: 'Looking for the perfect family neighborhood? We\'ve compiled a list of the top areas in Toronto for families.', date: 'February 1, 2026', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', category: 'Guide' },
+    { title: 'Understanding Mortgage Rates in 2026', excerpt: 'Mortgage rates play a crucial role in your home buying journey. Here\'s what you need to know about current rates.', date: 'January 20, 2026', image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80', category: 'Finance' },
+    { title: 'Condo vs House: Which is Right for You?', excerpt: 'We break down the pros and cons of condos and houses to help you make the right choice for your lifestyle.', date: 'January 10, 2026', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80', category: 'Guide' },
+  ];
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | ${companyName}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --primary: ${primaryColor}; --primary-dark: ${primaryColor}dd; --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-400: #9ca3af; --gray-600: #4b5563; --gray-800: #1f2937; }
+    body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--gray-600); background: white; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    a { text-decoration: none; color: inherit; }
+    header { background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
+    .logo { font-size: 22px; font-weight: 800; color: var(--primary); }
+    nav { display: flex; gap: 28px; }
+    nav a { font-size: 15px; font-weight: 500; color: var(--gray-600); transition: color 0.2s; }
+    nav a:hover { color: var(--primary); }
+    .header-cta { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; }
+    .page-hero { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 80px 0; text-align: center; }
+    .page-hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 16px; }
+    .page-hero p { font-size: 18px; opacity: 0.9; }
+    .categories { padding: 32px 0; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .category { padding: 8px 20px; border: 1px solid var(--gray-200); border-radius: 24px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+    .category:hover, .category.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 32px; padding: 32px 0 80px; }
+    .blog-card { border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; transition: all 0.3s; }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+    .blog-img { height: 200px; background-size: cover; background-position: center; }
+    .blog-content { padding: 24px; }
+    .blog-category { display: inline-block; background: var(--gray-100); color: var(--gray-600); padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+    .blog-title { font-size: 20px; font-weight: 700; color: var(--gray-800); margin-bottom: 12px; line-height: 1.3; }
+    .blog-excerpt { font-size: 14px; color: var(--gray-600); margin-bottom: 16px; }
+    .blog-meta { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--gray-400); }
+    footer { background: var(--gray-800); color: white; padding: 40px 0; text-align: center; }
+    footer p { opacity: 0.6; font-size: 14px; }
+    @media (max-width: 768px) { nav { display: none; } .page-hero h1 { font-size: 32px; } .blog-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">${companyName}</a>
+        <nav><a href="index.html">Home</a><a href="listings.html">Listings</a><a href="blog.html">Blog</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></nav>
+        <a href="index.html#contact" class="header-cta">Contact Us</a>
+      </div>
+    </div>
+  </header>
+  <section class="page-hero">
+    <div class="container"><h1>Real Estate Blog</h1><p>Expert insights, tips, and market updates from ${companyName}</p></div>
+  </section>
+  <section class="categories">
+    <div class="container">
+      <span class="category active">All Posts</span>
+      <span class="category">Buying</span>
+      <span class="category">Selling</span>
+      <span class="category">Market</span>
+      <span class="category">Finance</span>
+      <span class="category">Guide</span>
+    </div>
+  </section>
+  <section class="blog">
+    <div class="container">
+      <div class="blog-grid">
+        ${posts.map(p => `<div class="blog-card"><div class="blog-img" style="background-image: url('${p.image}')"></div><div class="blog-content"><span class="blog-category">${p.category}</span><div class="blog-title">${p.title}</div><p class="blog-excerpt">${p.excerpt}</p><div class="blog-meta"><span>${p.date}</span><span>Read more →</span></div></div></div>`).join('')}
+      </div>
+    </div>
+  </section>
+  <footer><div class="container"><p>&copy; ${new Date().getFullYear()} ${companyName}. All rights reserved.</p></div></footer>
+</body>
+</html>`;
+}
+
 async function getOrCreateProject(projectName: string): Promise<string | null> {
   const token = process.env.VERCEL_TOKEN;
   const teamId = process.env.VERCEL_ACCOUNT_ID;
@@ -1094,7 +1281,13 @@ export async function deployToVercel(
     if (!projectId) return { success: false, error: 'Failed to create Vercel project' };
     console.log('Project ID:', projectId);
     const html = generateRealEstateHTML(details);
-    const files = [{ file: 'index.html', data: Buffer.from(html).toString('base64'), encoding: 'base64' }];
+    const listingsHtml = generateListingsPage(details);
+    const blogHtml = generateBlogPage(details);
+    const files = [
+      { file: 'index.html', data: Buffer.from(html).toString('base64'), encoding: 'base64' },
+      { file: 'listings.html', data: Buffer.from(listingsHtml).toString('base64'), encoding: 'base64' },
+      { file: 'blog.html', data: Buffer.from(blogHtml).toString('base64'), encoding: 'base64' },
+    ];
     const deployRes = await axios.post('https://api.vercel.com/v6/deployments',
       { name: projectName, project: projectId, public: true, files },
       { headers, params: { teamId } }
