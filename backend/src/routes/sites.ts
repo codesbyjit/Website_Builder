@@ -3,6 +3,7 @@ import { Site, CreateSiteRequest, CreateSiteResponse } from '../types';
 import { getTemplateById } from '../data/templates';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { deployToVercel } from '../services/vercelDeploy';
+import { deployToGitHub } from '../services/githubDeploy';
 
 const router = Router();
 
@@ -59,13 +60,24 @@ router.post('/', authMiddleware, async (req: AuthRequest, res: Response) => {
     status: 'building',
   } as CreateSiteResponse);
 
-  const deployResult = await deployToVercel(
-    req.userId!,
-    siteId,
-    templateId,
-    details,
-    siteName
-  );
+  let deployResult;
+  if (template.deployType === 'github') {
+    deployResult = await deployToGitHub(
+      req.userId!,
+      siteId,
+      templateId,
+      details,
+      siteName
+    );
+  } else {
+    deployResult = await deployToVercel(
+      req.userId!,
+      siteId,
+      templateId,
+      details,
+      siteName
+    );
+  }
 
   console.log('Deploy result:', deployResult);
 

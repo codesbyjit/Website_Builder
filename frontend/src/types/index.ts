@@ -6,6 +6,7 @@ export interface Template {
   thumbnail: string;
   features: string[];
   formSchema: FormField[];
+  deployType?: 'vercel' | 'github';
 }
 
 export interface FormField {
