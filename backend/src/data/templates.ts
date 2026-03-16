@@ -184,7 +184,6 @@ export const templates: Template[] = [
       { id: 'province', type: 'select', label: 'Province', options: ['BC', 'AB', 'SK', 'MB', 'ON', 'QC', 'NB', 'NS', 'PE', 'NL'], required: true },
       { id: 'services', type: 'textarea', label: 'Services (one per line)', placeholder: 'Home Buying\nHome Selling\nInvestment Properties', required: true },
       { id: 'about', type: 'textarea', label: 'About You', placeholder: 'Tell clients about yourself...', required: true },
-      { id: 'primaryColor', type: 'color', label: 'Brand Color', required: false },
     ],
   },
 ];

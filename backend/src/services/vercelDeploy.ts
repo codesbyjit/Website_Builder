@@ -22,27 +22,27 @@ function generateRealEstateHTML(details: Record<string, string>): string {
     homesSOLD = '80+',
     yearsExp = '10+',
     rating = '5.0',
-    neighborhood1 = 'West Side',
-    neighborhood2 = 'East Side',
-    neighborhood3 = '',
-    neighborhood4 = '',
-    neighborhood5 = '',
-    neighborhood6 = '',
-    price1 = '$1,500,000',
-    price2 = '$1,200,000',
-    price3 = '',
-    price4 = '',
-    price5 = '',
-    price6 = '',
+    neighborhood1 = 'Vancouver West',
+    neighborhood2 = 'East Vancouver',
+    neighborhood3 = 'Burnaby',
+    neighborhood4 = 'Surrey',
+    neighborhood5 = 'Richmond',
+    neighborhood6 = 'New Westminster',
+    price1 = '$2,100,000',
+    price2 = '$1,400,000',
+    price3 = '$1,200,000',
+    price4 = '$950,000',
+    price5 = '$1,300,000',
+    price6 = '$850,000',
     review1Name = 'Nirmala P.',
     review1Text = 'She patiently visited multiple homes with us, taking the time to clearly explain the pros and cons of each option.',
     review1Type = 'House',
     review2Name = 'Ashwani J.',
     review2Text = 'Finding the right property can be overwhelming, but she made the entire process smooth and stress-free.',
     review2Type = 'Condo',
-    review3Name = '',
-    review3Text = '',
-    review3Type = '',
+    review3Name = 'Anna Can',
+    review3Text = 'Mallika was absolutely amazing to work with! She was professional, knowledgeable, and always available to answer our questions.',
+    review3Type = 'House',
     agentPhotoUrl = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80',
     googleReviewsUrl = '#',
     instagramHandle = '',
@@ -51,8 +51,9 @@ function generateRealEstateHTML(details: Record<string, string>): string {
     accentDark = '#0a0a0f',
     services = 'Home Buying\nHome Selling\nInvestment Properties',
     about = 'With a passion for real estate and a deep understanding of the local market, I\'m dedicated to making your home buying or selling experience exceptional.',
-    primaryColor = '#2563eb',
   } = details;
+
+  const goldColor = '#C9A96E';
 
   const heroPhotoUrl = heroImage || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80&auto=format';
 
@@ -80,13 +81,22 @@ function generateRealEstateHTML(details: Record<string, string>): string {
     'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=400&q=80&auto=format',
   ];
 
+  const neighborhoodImages = [
+    'https://images.unsplash.com/photo-1559517282-523965c5a9c9?w=600&q=80&auto=format',
+    'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80&auto=format',
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80&auto=format',
+    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80&auto=format',
+    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80&auto=format',
+    'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&q=80&auto=format',
+  ];
+
   const neighborhoods = [
-    { name: neighborhood1, price: price1 },
-    { name: neighborhood2, price: price2 },
-    { name: neighborhood3, price: price3 },
-    { name: neighborhood4, price: price4 },
-    { name: neighborhood5, price: price5 },
-    { name: neighborhood6, price: price6 },
+    { name: neighborhood1, price: price1, image: neighborhoodImages[0] },
+    { name: neighborhood2, price: price2, image: neighborhoodImages[1] },
+    { name: neighborhood3, price: price3, image: neighborhoodImages[2] },
+    { name: neighborhood4, price: price4, image: neighborhoodImages[3] },
+    { name: neighborhood5, price: price5, image: neighborhoodImages[4] },
+    { name: neighborhood6, price: price6, image: neighborhoodImages[5] },
   ];
 
   const reviews = [
@@ -108,9 +118,9 @@ function generateRealEstateHTML(details: Record<string, string>): string {
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --gold: ${primaryColor};
-      --gold-light: ${primaryColor}33;
-      --gold-mid: ${primaryColor}88;
+      --gold: ${goldColor};
+      --gold-light: ${goldColor}33;
+      --gold-mid: ${goldColor}88;
       --dark: ${accentDark};
       --dark-2: #13131a;
       --dark-3: #1c1c26;
@@ -425,15 +435,9 @@ function generateRealEstateHTML(details: Record<string, string>): string {
     .neighborhoods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .neighborhood-card {
       position: relative; height: 200px; border-radius: 14px; overflow: hidden;
-      cursor: pointer; transition: all 0.35s;
+      cursor: pointer; transition: all 0.35s; background-size: cover; background-position: center;
     }
     .neighborhood-card:hover { transform: scale(1.02); }
-    .neighborhood-card:nth-child(1) { background: linear-gradient(135deg, #1a1a2e, #16213e); }
-    .neighborhood-card:nth-child(2) { background: linear-gradient(135deg, #1a2a1a, #2d4a2d); }
-    .neighborhood-card:nth-child(3) { background: linear-gradient(135deg, #2e1a1a, #4a2d2d); }
-    .neighborhood-card:nth-child(4) { background: linear-gradient(135deg, #1a2a2e, #1a3a3a); }
-    .neighborhood-card:nth-child(5) { background: linear-gradient(135deg, #2a1a2e, #3a2d4a); }
-    .neighborhood-card:nth-child(6) { background: linear-gradient(135deg, #2e2a1a, #4a3d1a); }
     .neighborhood-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 100%);
@@ -507,7 +511,7 @@ function generateRealEstateHTML(details: Record<string, string>): string {
     }
     .cta-section::before {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 120%, ${primaryColor}20 0%, transparent 60%);
+      background: radial-gradient(ellipse at 50% 120%, ${goldColor}20 0%, transparent 60%);
     }
     .cta-section .section-title { color: var(--white); margin-bottom: 18px; position: relative; }
     .cta-sub { font-size: 17px; color: rgba(255,255,255,0.5); max-width: 540px; margin: 0 auto 44px; position: relative; }
@@ -589,12 +593,12 @@ function generateRealEstateHTML(details: Record<string, string>): string {
         </a>
         <nav>
           <a href="index.html">Home</a>
-          <a href="listings.html">Listings</a>
-          <a href="blog.html">Blog</a>
           <a href="#about">About</a>
-          <a href="#services">Services</a>
+          <a href="listings.html">Listings</a>
           <a href="#reviews">Reviews</a>
           <a href="#neighborhoods">Areas</a>
+          <a href="blog.html">Blog</a>
+          <a href="#resources">Resources</a>
           <a href="#contact">Contact</a>
         </nav>
         <div class="header-right">
@@ -672,7 +676,7 @@ function generateRealEstateHTML(details: Record<string, string>): string {
           <div class="stat-label">Team in ${province}</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">98%</div>
+          <div class="stat-num">100%</div>
           <div class="stat-label">Client Satisfaction</div>
         </div>
       </div>
@@ -865,7 +869,7 @@ function generateRealEstateHTML(details: Record<string, string>): string {
       </div>
       <div class="neighborhoods-grid">
         ${neighborhoods.map(n => `
-        <div class="neighborhood-card">
+        <div class="neighborhood-card" style="background-image: url('${n.image}')">
           <div class="neighborhood-overlay">
             <div class="neighborhood-name">${n.name}</div>
             <div class="neighborhood-price">From ${n.price}</div>
@@ -970,10 +974,12 @@ function generateRealEstateHTML(details: Record<string, string>): string {
         <div class="footer-col">
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#about">About ${companyName.split(' ')[0]}</a></li>
-            <li><a href="#services">Property Listings</a></li>
-            <li><a href="#reviews">Client Reviews</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="listings.html">Listings</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#neighborhoods">Areas</a></li>
+            <li><a href="blog.html">Blog</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
@@ -984,6 +990,7 @@ function generateRealEstateHTML(details: Record<string, string>): string {
             <li><a href="#">Seller's Guide</a></li>
             <li><a href="#">Market Reports</a></li>
             <li><a href="#">Open Houses</a></li>
+            <li><a href="#">FAQ</a></li>
             <li><a href="#">Free Resources</a></li>
           </ul>
         </div>
@@ -1058,7 +1065,7 @@ function generateRealEstateHTML(details: Record<string, string>): string {
 }
 
 function generateListingsPage(details: Record<string, string>): string {
-  const { companyName = 'Real Estate', city = 'Toronto', province = 'ON', primaryColor = '#2563eb' } = details;
+  const { companyName = 'Real Estate', city = 'Toronto', province = 'ON', phone = '(604) 555-0192', email = 'hello@realestate.com' } = details;
   const provinceName: Record<string, string> = { ON: 'Ontario', BC: 'British Columbia', AB: 'Alberta', QC: 'Quebec' };
   const provFull = provinceName[province] || province;
 
@@ -1077,51 +1084,91 @@ function generateListingsPage(details: Record<string, string>): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Property Listings | ${companyName}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --primary: ${primaryColor}; --primary-dark: ${primaryColor}dd; --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-400: #9ca3af; --gray-600: #4b5563; --gray-800: #1f2937; }
-    body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--gray-600); background: white; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --gold: #C9A96E; --gold-light: #C9A96E33; --gold-mid: #C9A96E88; --dark: #0a0a0f; --dark-2: #13131a; --dark-3: #1c1c26; --white: #ffffff; --off-white: #faf9f7; --gray-100: #f4f3f0; --gray-200: #e8e6e1; --gray-400: #9d9b95; --gray-500: #6b6963; --gray-700: #3a3935; --gray-900: #1a1917; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--gray-700); background: var(--white); line-height: 1.65; overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
-    header { background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-    .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
-    .logo { font-size: 22px; font-weight: 800; color: var(--primary); }
-    nav { display: flex; gap: 28px; }
-    nav a { font-size: 15px; font-weight: 500; color: var(--gray-600); transition: color 0.2s; }
-    nav a:hover { color: var(--primary); }
-    .header-cta { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; }
-    .page-hero { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 80px 0; text-align: center; }
-    .page-hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 16px; }
-    .page-hero p { font-size: 18px; opacity: 0.9; }
-    .filters { background: var(--gray-50); padding: 24px 0; border-bottom: 1px solid var(--gray-200); }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--gray-200); transition: all 0.3s ease; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; gap: 24px; }
+    .logo-wrap { display: flex; flex-direction: column; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--gray-900); letter-spacing: -0.3px; line-height: 1; }
+    .logo-sub { font-size: 11px; font-weight: 400; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; }
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a { font-size: 14px; font-weight: 500; color: var(--gray-500); transition: color 0.2s; letter-spacing: 0.2px; }
+    nav a:hover { color: var(--gray-900); }
+    .header-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+    .header-phone { font-size: 14px; font-weight: 500; color: var(--gray-700); }
+    .btn-talk { background: var(--dark); color: var(--white); padding: 10px 22px; border-radius: 6px; font-size: 13px; font-weight: 600; letter-spacing: 0.3px; transition: all 0.25s; white-space: nowrap; }
+    .btn-talk:hover { background: var(--gold); color: var(--dark); }
+    .page-hero { background: var(--dark); padding: 140px 0 80px; text-align: center; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, var(--gold) 0%, transparent 70%); opacity: 0.1; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 56px); font-weight: 700; color: var(--white); line-height: 1.12; letter-spacing: -1px; margin-bottom: 18px; position: relative; }
+    .page-hero p { font-size: 17px; color: rgba(255,255,255,0.6); max-width: 540px; margin: 0 auto; position: relative; }
+    .filters { background: var(--gray-100); padding: 24px 0; border-bottom: 1px solid var(--gray-200); }
     .filters-inner { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
-    .filters select { padding: 12px 16px; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 14px; min-width: 160px; background: white; }
-    .filters .count { font-size: 14px; color: var(--gray-600); margin-left: auto; }
-    .listings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 32px; padding: 48px 0; }
-    .listing-card { border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; transition: all 0.3s; }
-    .listing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+    .filters select { padding: 12px 16px; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 14px; min-width: 160px; background: white; font-family: inherit; cursor: pointer; }
+    .filters .count { font-size: 14px; color: var(--gray-500); margin-left: auto; }
+    .listings-section { padding: 64px 0; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 36px); font-weight: 700; color: var(--gray-900); margin-bottom: 40px; }
+    .listings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; }
+    .listing-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; overflow: hidden; transition: all 0.3s; }
+    .listing-card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(0,0,0,0.1); border-color: var(--gold); }
     .listing-img { height: 240px; background-size: cover; background-position: center; position: relative; }
-    .listing-tag { position: absolute; top: 16px; left: 16px; background: var(--primary); color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+    .listing-tag { position: absolute; top: 16px; left: 16px; background: var(--gold); color: var(--dark); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
     .listing-content { padding: 24px; }
-    .listing-price { font-size: 28px; font-weight: 800; color: var(--gray-800); margin-bottom: 8px; }
-    .listing-title { font-size: 18px; font-weight: 600; color: var(--gray-800); margin-bottom: 8px; }
-    .listing-address { font-size: 14px; color: var(--gray-400); margin-bottom: 16px; }
-    .listing-stats { display: flex; gap: 20px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
-    .listing-stat { font-size: 14px; color: var(--gray-600); }
-    .listing-stat strong { color: var(--gray-800); }
-    footer { background: var(--gray-800); color: white; padding: 40px 0; text-align: center; }
-    footer p { opacity: 0.6; font-size: 14px; }
-    @media (max-width: 768px) { nav { display: none; } .page-hero h1 { font-size: 32px; } .listings-grid { grid-template-columns: 1fr; } }
+    .listing-price { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+    .listing-title { font-size: 17px; font-weight: 600; color: var(--gray-900); margin-bottom: 6px; }
+    .listing-address { font-size: 14px; color: var(--gray-500); margin-bottom: 16px; }
+    .listing-stats { display: flex; gap: 20px; padding-top: 16px; border-top: 1px solid var(--gray-200); }
+    .listing-stat { font-size: 14px; color: var(--gray-500); }
+    .listing-stat strong { color: var(--gray-900); }
+    footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); padding: 60px 0 36px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 52px; }
+    .footer-brand .logo-name { color: var(--white); font-size: 22px; }
+    .footer-brand .logo-sub { color: var(--gold); }
+    .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.8; margin-top: 16px; max-width: 280px; }
+    .footer-col h4 { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 14px; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-contact-item { font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 8px; }
+    .footer-contact-item a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.25); }
+    .footer-legal { font-size: 12px; color: rgba(255,255,255,0.2); max-width: 500px; text-align: right; }
+    @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; } }
+    @media (max-width: 768px) { nav { display: none; } .page-hero h1 { font-size: 32px; } .listings-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; gap: 32px; } .footer-legal { text-align: left; } }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
       <div class="header-inner">
-        <a href="index.html" class="logo">${companyName}</a>
-        <nav><a href="index.html">Home</a><a href="listings.html">Listings</a><a href="blog.html">Blog</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></nav>
-        <a href="index.html#contact" class="header-cta">Contact Us</a>
+        <a href="index.html" class="logo-wrap">
+          <span class="logo-name">${companyName}</span>
+          <span class="logo-sub">Real Estate</span>
+        </a>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="index.html#about">About</a>
+          <a href="listings.html">Listings</a>
+          <a href="index.html#reviews">Reviews</a>
+          <a href="index.html#neighborhoods">Areas</a>
+          <a href="blog.html">Blog</a>
+          <a href="index.html#resources">Resources</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+        <div class="header-right">
+          <a href="tel:${phone}" class="header-phone">${phone}</a>
+          <a href="index.html#contact" class="btn-talk">Let's Talk</a>
+        </div>
       </div>
     </div>
   </header>
@@ -1145,13 +1192,58 @@ function generateListingsPage(details: Record<string, string>): string {
       </div>
     </div>
   </section>
-  <footer><div class="container"><p>&copy; ${new Date().getFullYear()} ${companyName}. All rights reserved.</p></div></footer>
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-wrap">
+            <span class="logo-name">${companyName}</span>
+            <span class="logo-sub">Real Estate</span>
+          </div>
+          <p class="footer-brand-desc">Helping families find their perfect home in Greater ${city}. Your trusted partner for buying, selling, and investing in the ${provFull} market.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="listings.html">Listings</a></li>
+            <li><a href="index.html#reviews">Reviews</a></li>
+            <li><a href="index.html#neighborhoods">Areas</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="index.html#resources">Buyer's Guide</a></li>
+            <li><a href="index.html#resources">Seller's Guide</a></li>
+            <li><a href="index.html#resources">Market Reports</a></li>
+            <li><a href="index.html#resources">Open Houses</a></li>
+            <li><a href="index.html#resources">FAQ</a></li>
+            <li><a href="index.html#resources">Free Resources</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <div class="footer-contact-item"><a href="tel:${phone}">${phone}</a></div>
+          <div class="footer-contact-item"><a href="mailto:${email}">${email}</a></div>
+          <div class="footer-contact-item">${city}, ${province}, Canada</div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; ${new Date().getFullYear()} ${companyName}. All rights reserved.</p>
+        <p class="footer-legal">The trademarks REALTOR&reg;, REALTORS&reg;, and the REALTOR&reg; logo are controlled by The Canadian Real Estate Association (CREA).</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>`;
 }
 
 function generateBlogPage(details: Record<string, string>): string {
-  const { companyName = 'Real Estate', city = 'Toronto', province = 'ON', primaryColor = '#2563eb' } = details;
+  const { companyName = 'Real Estate', city = 'Toronto', province = 'ON', phone = '(604) 555-0192', email = 'hello@realestate.com' } = details;
   const provinceName: Record<string, string> = { ON: 'Ontario', BC: 'British Columbia', AB: 'Alberta', QC: 'Quebec' };
   const provFull = provinceName[province] || province;
 
@@ -1170,47 +1262,86 @@ function generateBlogPage(details: Record<string, string>): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog | ${companyName}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --primary: ${primaryColor}; --primary-dark: ${primaryColor}dd; --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-400: #9ca3af; --gray-600: #4b5563; --gray-800: #1f2937; }
-    body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--gray-600); background: white; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --gold: #C9A96E; --gold-light: #C9A96E33; --gold-mid: #C9A96E88; --dark: #0a0a0f; --dark-2: #13131a; --dark-3: #1c1c26; --white: #ffffff; --off-white: #faf9f7; --gray-100: #f4f3f0; --gray-200: #e8e6e1; --gray-400: #9d9b95; --gray-500: #6b6963; --gray-700: #3a3935; --gray-900: #1a1917; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--gray-700); background: var(--white); line-height: 1.65; overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
-    header { background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-    .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
-    .logo { font-size: 22px; font-weight: 800; color: var(--primary); }
-    nav { display: flex; gap: 28px; }
-    nav a { font-size: 15px; font-weight: 500; color: var(--gray-600); transition: color 0.2s; }
-    nav a:hover { color: var(--primary); }
-    .header-cta { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; }
-    .page-hero { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 80px 0; text-align: center; }
-    .page-hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 16px; }
-    .page-hero p { font-size: 18px; opacity: 0.9; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--gray-200); transition: all 0.3s ease; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; gap: 24px; }
+    .logo-wrap { display: flex; flex-direction: column; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--gray-900); letter-spacing: -0.3px; line-height: 1; }
+    .logo-sub { font-size: 11px; font-weight: 400; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; }
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a { font-size: 14px; font-weight: 500; color: var(--gray-500); transition: color 0.2s; letter-spacing: 0.2px; }
+    nav a:hover { color: var(--gray-900); }
+    .header-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+    .header-phone { font-size: 14px; font-weight: 500; color: var(--gray-700); }
+    .btn-talk { background: var(--dark); color: var(--white); padding: 10px 22px; border-radius: 6px; font-size: 13px; font-weight: 600; letter-spacing: 0.3px; transition: all 0.25s; white-space: nowrap; }
+    .btn-talk:hover { background: var(--gold); color: var(--dark); }
+    .page-hero { background: var(--dark); padding: 140px 0 80px; text-align: center; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, var(--gold) 0%, transparent 70%); opacity: 0.1; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 56px); font-weight: 700; color: var(--white); line-height: 1.12; letter-spacing: -1px; margin-bottom: 18px; position: relative; }
+    .page-hero p { font-size: 17px; color: rgba(255,255,255,0.6); max-width: 540px; margin: 0 auto; position: relative; }
     .categories { padding: 32px 0; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-    .category { padding: 8px 20px; border: 1px solid var(--gray-200); border-radius: 24px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-    .category:hover, .category.active { background: var(--primary); color: white; border-color: var(--primary); }
-    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 32px; padding: 32px 0 80px; }
-    .blog-card { border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; transition: all 0.3s; }
-    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+    .category { padding: 8px 20px; border: 1px solid var(--gray-200); border-radius: 24px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: inherit; background: var(--white); color: var(--gray-500); }
+    .category:hover, .category.active { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+    .blog-section { padding: 64px 0; }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; }
+    .blog-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; overflow: hidden; transition: all 0.3s; }
+    .blog-card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(0,0,0,0.1); border-color: var(--gold); }
     .blog-img { height: 200px; background-size: cover; background-position: center; }
     .blog-content { padding: 24px; }
-    .blog-category { display: inline-block; background: var(--gray-100); color: var(--gray-600); padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
-    .blog-title { font-size: 20px; font-weight: 700; color: var(--gray-800); margin-bottom: 12px; line-height: 1.3; }
-    .blog-excerpt { font-size: 14px; color: var(--gray-600); margin-bottom: 16px; }
+    .blog-category { display: inline-block; background: var(--gray-100); color: var(--gray-500); padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+    .blog-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; line-height: 1.3; }
+    .blog-excerpt { font-size: 14px; color: var(--gray-500); margin-bottom: 16px; }
     .blog-meta { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--gray-400); }
-    footer { background: var(--gray-800); color: white; padding: 40px 0; text-align: center; }
-    footer p { opacity: 0.6; font-size: 14px; }
-    @media (max-width: 768px) { nav { display: none; } .page-hero h1 { font-size: 32px; } .blog-grid { grid-template-columns: 1fr; } }
+    footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); padding: 60px 0 36px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 52px; }
+    .footer-brand .logo-name { color: var(--white); font-size: 22px; }
+    .footer-brand .logo-sub { color: var(--gold); }
+    .footer-brand-desc { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.8; margin-top: 16px; max-width: 280px; }
+    .footer-col h4 { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 14px; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-contact-item { font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 8px; }
+    .footer-contact-item a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.25); }
+    .footer-legal { font-size: 12px; color: rgba(255,255,255,0.2); max-width: 500px; text-align: right; }
+    @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; } }
+    @media (max-width: 768px) { nav { display: none; } .page-hero h1 { font-size: 32px; } .blog-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; gap: 32px; } .footer-legal { text-align: left; } }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
       <div class="header-inner">
-        <a href="index.html" class="logo">${companyName}</a>
-        <nav><a href="index.html">Home</a><a href="listings.html">Listings</a><a href="blog.html">Blog</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></nav>
-        <a href="index.html#contact" class="header-cta">Contact Us</a>
+        <a href="index.html" class="logo-wrap">
+          <span class="logo-name">${companyName}</span>
+          <span class="logo-sub">Real Estate</span>
+        </a>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="index.html#about">About</a>
+          <a href="listings.html">Listings</a>
+          <a href="index.html#reviews">Reviews</a>
+          <a href="index.html#neighborhoods">Areas</a>
+          <a href="blog.html">Blog</a>
+          <a href="index.html#resources">Resources</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+        <div class="header-right">
+          <a href="tel:${phone}" class="header-phone">${phone}</a>
+          <a href="index.html#contact" class="btn-talk">Let's Talk</a>
+        </div>
       </div>
     </div>
   </header>
@@ -1227,14 +1358,59 @@ function generateBlogPage(details: Record<string, string>): string {
       <span class="category">Guide</span>
     </div>
   </section>
-  <section class="blog">
+  <section class="blog-section">
     <div class="container">
       <div class="blog-grid">
         ${posts.map(p => `<div class="blog-card"><div class="blog-img" style="background-image: url('${p.image}')"></div><div class="blog-content"><span class="blog-category">${p.category}</span><div class="blog-title">${p.title}</div><p class="blog-excerpt">${p.excerpt}</p><div class="blog-meta"><span>${p.date}</span><span>Read more →</span></div></div></div>`).join('')}
       </div>
     </div>
   </section>
-  <footer><div class="container"><p>&copy; ${new Date().getFullYear()} ${companyName}. All rights reserved.</p></div></footer>
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-wrap">
+            <span class="logo-name">${companyName}</span>
+            <span class="logo-sub">Real Estate</span>
+          </div>
+          <p class="footer-brand-desc">Helping families find their perfect home in Greater ${city}. Your trusted partner for buying, selling, and investing in the ${provFull} market.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="listings.html">Listings</a></li>
+            <li><a href="index.html#reviews">Reviews</a></li>
+            <li><a href="index.html#neighborhoods">Areas</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="index.html#resources">Buyer's Guide</a></li>
+            <li><a href="index.html#resources">Seller's Guide</a></li>
+            <li><a href="index.html#resources">Market Reports</a></li>
+            <li><a href="index.html#resources">Open Houses</a></li>
+            <li><a href="index.html#resources">FAQ</a></li>
+            <li><a href="index.html#resources">Free Resources</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <div class="footer-contact-item"><a href="tel:${phone}">${phone}</a></div>
+          <div class="footer-contact-item"><a href="mailto:${email}">${email}</a></div>
+          <div class="footer-contact-item">${city}, ${province}, Canada</div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; ${new Date().getFullYear()} ${companyName}. All rights reserved.</p>
+        <p class="footer-legal">The trademarks REALTOR&reg;, REALTORS&reg;, and the REALTOR&reg; logo are controlled by The Canadian Real Estate Association (CREA).</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>`;
 }

@@ -21,7 +21,6 @@ export const templates: Template[] = [
       { id: 'github', type: 'url', label: 'GitHub URL', placeholder: 'https://github.com/username', required: false },
       { id: 'linkedin', type: 'url', label: 'LinkedIn URL', placeholder: 'https://linkedin.com/in/username', required: false },
       { id: 'twitter', type: 'url', label: 'Twitter URL', placeholder: 'https://twitter.com/username', required: false },
-      { id: 'accentColor', type: 'color', label: 'Accent Color', required: false },
     ],
   },
   {
@@ -44,7 +43,6 @@ export const templates: Template[] = [
       { id: 'services', type: 'textarea', label: 'Services Offered', placeholder: 'List your services (one per line)', required: true },
       { id: 'heroTitle', type: 'text', label: 'Hero Title', placeholder: 'Transform your business', required: true },
       { id: 'heroSubtitle', type: 'textarea', label: 'Hero Subtitle', placeholder: 'We help companies grow...', required: true },
-      { id: 'primaryColor', type: 'color', label: 'Brand Color', required: false },
     ],
   },
   {
@@ -65,7 +63,6 @@ export const templates: Template[] = [
       { id: 'linkedin', type: 'url', label: 'LinkedIn URL', placeholder: 'https://linkedin.com/in/username', required: false },
       { id: 'heroTitle', type: 'text', label: 'Hero Title', placeholder: 'Welcome to my blog', required: true },
       { id: 'categories', type: 'text', label: 'Categories (comma separated)', placeholder: 'Technology, Design, Lifestyle', required: false },
-      { id: 'accentColor', type: 'color', label: 'Accent Color', required: false },
     ],
   },
   {
@@ -87,7 +84,6 @@ export const templates: Template[] = [
       { id: 'returnPolicy', type: 'textarea', label: 'Return Policy', placeholder: '30-day return policy...', required: false },
       { id: 'heroTitle', type: 'text', label: 'Hero Title', placeholder: 'Welcome to our store', required: true },
       { id: 'heroSubtitle', type: 'textarea', label: 'Hero Subtitle', placeholder: 'Discover amazing products...', required: true },
-      { id: 'primaryColor', type: 'color', label: 'Brand Color', required: false },
     ],
   },
   {
@@ -108,7 +104,6 @@ export const templates: Template[] = [
       { id: 'ctaText', type: 'text', label: 'CTA Button Text', placeholder: 'Get Started Free', required: true },
       { id: 'features', type: 'textarea', label: 'Features (one per line)', placeholder: 'Feature 1\nFeature 2\nFeature 3', required: true },
       { id: 'pricingTitle', type: 'text', label: 'Pricing Section Title', placeholder: 'Simple, transparent pricing', required: false },
-      { id: 'accentColor', type: 'color', label: 'Accent Color', required: false },
     ],
   },
   {
@@ -131,7 +126,6 @@ export const templates: Template[] = [
       { id: 'heroSubtitle', type: 'textarea', label: 'Hero Subtitle', placeholder: 'Expert guidance through your real estate journey', required: true },
       { id: 'services', type: 'textarea', label: 'Services (one per line)', placeholder: 'Home Buying\nHome Selling\nInvestment Properties', required: true },
       { id: 'about', type: 'textarea', label: 'About You', placeholder: 'Tell clients about yourself...', required: true },
-      { id: 'primaryColor', type: 'color', label: 'Brand Color', required: false },
     ],
   },
 ];

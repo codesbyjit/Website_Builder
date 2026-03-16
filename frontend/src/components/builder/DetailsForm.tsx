@@ -34,7 +34,6 @@ const DetailsForm = ({ template }: DetailsFormProps) => {
     { id: 'reviews', label: 'Reviews', fields: ['review1Name', 'review1Text', 'review1Type', 'review2Name', 'review2Text', 'review2Type'] },
     { id: 'contact', label: 'Contact', fields: ['email', 'phone', 'city', 'province'] },
     { id: 'about', label: 'About & Services', fields: ['about', 'services'] },
-    { id: 'customize', label: 'Customize', fields: ['primaryColor'] },
   ];
 
   const steps = allSteps.filter(step => 
