@@ -8,7 +8,7 @@ import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { useAuthStore } from '@/lib/authStore';
 import { api } from '@/lib/api';
-import { FolderOpen, ExternalLink, Loader2, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { FolderOpen, ExternalLink, Loader2, Clock, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 
 interface Site {
@@ -42,6 +42,15 @@ export default function DashboardPage() {
       console.error('Failed to fetch sites:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleRedeploy = async (siteId: string) => {
+    try {
+      await api.sites.redeploy(siteId);
+      await fetchSites();
+    } catch (error) {
+      console.error('Failed to redeploy:', error);
     }
   };
 
@@ -111,15 +120,23 @@ export default function DashboardPage() {
                   </div>
                   
                   {site.liveUrl && site.status === 'deployed' && (
-                    <a
-                      href={site.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 flex items-center justify-center gap-2 w-full py-2 rounded-lg bg-[#1C1C1F] text-sm text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-[#252528] transition-colors"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      View Live Site
-                    </a>
+                    <div className="flex gap-2 mt-3">
+                      <a
+                        href={site.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg bg-[#1C1C1F] text-sm text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-[#252528] transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        View Site
+                      </a>
+                      <button
+                        onClick={() => handleRedeploy(site.id)}
+                        className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-[#1C1C1F] text-sm text-[#A1A1AA] hover:text-[#FAFAFA] hover:bg-[#252528] transition-colors"
+                      >
+                        <RefreshCw className="w-4 h-4" />
+                      </button>
+                    </div>
                   )}
                 </Card>
               );

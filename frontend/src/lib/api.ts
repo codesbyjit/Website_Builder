@@ -70,5 +70,9 @@ export const api = {
         body: JSON.stringify({ templateId, siteName, details }),
       }),
     getBuildLogs: (id: string) => fetchWithAuth(`/sites/${id}/build-logs`),
+    redeploy: (id: string) =>
+      fetchWithAuth(`/sites/${id}/redeploy`, {
+        method: 'POST',
+      }),
   },
 };

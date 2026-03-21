@@ -1421,10 +1421,10 @@ async function getOrCreateProject(projectName: string): Promise<string | null> {
   if (!token || !teamId) return null;
   const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
   try {
-    const listRes = await axios.get('https://api.vercel.com/v6/projects', { headers, params: { teamId } });
-    const existing = listRes.data.projects?.find((p: any) => p.name === projectName);
+    const listRes = await axios.get<{ projects?: Array<{ id: string; name: string }> }>('https://api.vercel.com/v6/projects', { headers, params: { teamId } });
+    const existing = listRes.data.projects?.find((p) => p.name === projectName);
     if (existing) return existing.id;
-    const createRes = await axios.post('https://api.vercel.com/v6/projects',
+    const createRes = await axios.post<{ id: string }>('https://api.vercel.com/v6/projects',
       { name: projectName, publicSource: true },
       { headers, params: { teamId } }
     );
@@ -1464,7 +1464,7 @@ export async function deployToVercel(
       { file: 'listings.html', data: Buffer.from(listingsHtml).toString('base64'), encoding: 'base64' },
       { file: 'blog.html', data: Buffer.from(blogHtml).toString('base64'), encoding: 'base64' },
     ];
-    const deployRes = await axios.post('https://api.vercel.com/v6/deployments',
+    const deployRes = await axios.post<{ url: string }>('https://api.vercel.com/v6/deployments',
       { name: projectName, project: projectId, public: true, files },
       { headers, params: { teamId } }
     );

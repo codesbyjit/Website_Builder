@@ -135,4 +135,62 @@ router.get('/:id/build-logs', authMiddleware, (req: AuthRequest, res: Response) 
   });
 });
 
+router.post('/:id/redeploy', authMiddleware, async (req: AuthRequest, res: Response) => {
+  const site = sites.find((s) => s.id === req.params.id && s.userId === req.userId);
+
+  if (!site) {
+    return res.status(404).json({
+      success: false,
+      error: 'Site not found',
+    });
+  }
+
+  site.status = 'building';
+  site.updatedAt = new Date().toISOString();
+
+  res.json({
+    success: true,
+    status: 'building',
+  });
+
+  const template = getTemplateById(site.templateId);
+  if (!template) {
+    site.status = 'failed';
+    site.updatedAt = new Date().toISOString();
+    return;
+  }
+
+  let deployResult;
+  if (template.deployType === 'github') {
+    deployResult = await deployToGitHub(
+      site.userId,
+      site.id,
+      site.templateId,
+      site.details,
+      site.siteName
+    );
+  } else {
+    deployResult = await deployToVercel(
+      site.userId,
+      site.id,
+      site.templateId,
+      site.details,
+      site.siteName
+    );
+  }
+
+  console.log('Redeploy result:', deployResult);
+
+  const siteIndex = sites.findIndex((s) => s.id === site.id);
+  if (siteIndex !== -1) {
+    if (deployResult.success && deployResult.url) {
+      sites[siteIndex].status = 'deployed';
+      sites[siteIndex].liveUrl = deployResult.url;
+    } else {
+      sites[siteIndex].status = 'failed';
+    }
+    sites[siteIndex].updatedAt = new Date().toISOString();
+  }
+});
+
 export default router;
