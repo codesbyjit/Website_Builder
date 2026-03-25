@@ -36,7 +36,7 @@ const TemplateGallery = () => {
     <div className="space-y-6">
 
       {/* HEADER */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
         <div>
           <h1 className="text-xl font-semibold text-white tracking-tight">
@@ -48,18 +48,18 @@ const TemplateGallery = () => {
         </div>
 
         {/* MINIMAL SEARCH */}
-        <div className="relative w-56">
+        <div className="relative w-full sm:w-56">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
 
           <Input
             id="template-search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-9 pl-9 pr-16 bg-zinc-900/70 border border-zinc-800 text-sm text-white placeholder:text-zinc-500 focus:ring-0 focus:border-zinc-700"
+            className="h-9 pl-9 pr-16 bg-zinc-900/70 border border-zinc-800 text-sm text-white placeholder:text-zinc-500 focus:ring-0 focus:border-zinc-700 w-full"
           />
 
-          {/* Ctrl + K hint */}
-          <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-zinc-500 border border-zinc-700 px-1.5 py-0.5 rounded">
+          {/* Ctrl + K hint - hide on mobile */}
+          <div className="hidden sm:block absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-zinc-500 border border-zinc-700 px-1.5 py-0.5 rounded">
             Ctrl K
           </div>
         </div>

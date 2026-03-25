@@ -82,12 +82,12 @@ export default function DashboardPage() {
 
   return (
     <AppLayout>
-      <div className="space-y-8">
+      <div className="space-y-6 sm:space-y-8">
 
         {/* HEADER */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-xl font-semibold text-white tracking-tight">
+            <h1 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
               Your Sites
             </h1>
             <p className="text-sm text-zinc-500 mt-1">
@@ -96,7 +96,7 @@ export default function DashboardPage() {
           </div>
 
           <Link href="/builder/templates">
-            <Button className="bg-indigo-500 hover:bg-indigo-600 text-white">
+            <Button className="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white">
               New Site
             </Button>
           </Link>
@@ -104,19 +104,19 @@ export default function DashboardPage() {
 
         {/* LOADING */}
         {loading ? (
-          <div className="flex items-center justify-center py-24">
+          <div className="flex items-center justify-center py-16 sm:py-24">
             <Loader2 className="w-6 h-6 text-zinc-500 animate-spin" />
           </div>
         ) : sites.length === 0 ? (
 
           /* EMPTY */
-          <Card className="p-12 border border-zinc-800 bg-zinc-900/60 text-center">
+          <Card className="p-8 sm:p-12 border border-zinc-800 bg-zinc-900/60 text-center">
             <div className="flex flex-col items-center">
-              <div className="w-14 h-14 rounded-full bg-zinc-800 flex items-center justify-center mb-4">
-                <FolderOpen className="w-6 h-6 text-zinc-500" />
+              <div className="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-zinc-800 flex items-center justify-center mb-4">
+                <FolderOpen className="w-5 sm:w-6 h-5 sm:h-6 text-zinc-500" />
               </div>
 
-              <h3 className="text-lg font-medium text-white">
+              <h3 className="text-base sm:text-lg font-medium text-white">
                 No sites yet
               </h3>
 

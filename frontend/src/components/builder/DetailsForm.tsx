@@ -142,27 +142,27 @@ export default function DetailsForm({ template }: DetailsFormProps) {
     <div className="max-w-6xl mx-auto px-4">
 
       {/* HEADER */}
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <Link href="/builder/templates" className="text-sm text-zinc-500 hover:text-white flex items-center gap-2">
           <ArrowLeft className="w-4 h-4" />
-          Templates
+          <span className="hidden sm:inline">Templates</span>
         </Link>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
 
         {/* LEFT */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="md:col-span-2 space-y-4 sm:space-y-6">
 
           <div>
-            <h1 className="text-xl font-semibold text-white">{template.name}</h1>
+            <h1 className="text-lg sm:text-xl font-semibold text-white">{template.name}</h1>
             <p className="text-sm text-zinc-500">Quick setup</p>
           </div>
 
-          <Card className="p-6 border border-zinc-800 bg-zinc-900/60">
+          <Card className="p-4 sm:p-6 border border-zinc-800 bg-zinc-900/60">
 
             {/* STEP SWITCH */}
-            <div className="flex gap-2 mb-6">
+            <div className="flex gap-2 mb-4 sm:mb-6">
               {steps.map((s, i) => (
                 <div
                   key={i}
@@ -176,12 +176,12 @@ export default function DetailsForm({ template }: DetailsFormProps) {
             </div>
 
             {/* FIELDS */}
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-4">
               {currentFields.map(renderField)}
             </div>
 
             {/* ACTION */}
-            <div className="flex justify-between mt-6 pt-4 border-t border-zinc-800">
+            <div className="flex justify-between mt-4 sm:mt-6 pt-4 border-t border-zinc-800 gap-3">
               <Button
                 variant="ghost"
                 disabled={step === 0}
@@ -207,7 +207,7 @@ export default function DetailsForm({ template }: DetailsFormProps) {
         </div>
 
         {/* RIGHT PREVIEW */}
-        <div className="space-y-4">
+        <div className="space-y-4 order-first md:order-last">
 
           <Card className="overflow-hidden border border-zinc-800 bg-zinc-900/60">
             <div className="aspect-[4/3] relative">
@@ -218,9 +218,9 @@ export default function DetailsForm({ template }: DetailsFormProps) {
               />
 
               {/* LIVE OVERLAY */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 p-4 flex flex-col justify-end">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 p-3 sm:p-4 flex flex-col justify-end">
 
-                <h2 className="text-white text-lg font-semibold">
+                <h2 className="text-white text-base sm:text-lg font-semibold">
                   {previewData.companyName || 'Your Company'}
                 </h2>
 
@@ -228,23 +228,13 @@ export default function DetailsForm({ template }: DetailsFormProps) {
                   {previewData.heroSubtitle || 'Your tagline'}
                 </p>
 
-                <div className="mt-2 text-xs text-zinc-400">
+                <div className="mt-1 sm:mt-2 text-xs text-zinc-400">
                   {previewData.email || 'contact@email.com'}
                 </div>
 
               </div>
             </div>
           </Card>
-
-          {/* FEATURES */}
-          {/* <div className="space-y-2">
-            {template.features.map((f) => (
-              <div key={f} className="flex gap-2 text-sm text-zinc-400">
-                <Check className="w-4 h-4 text-emerald-400" />
-                {f}
-              </div>
-            ))}
-          </div> */}
 
         </div>
 
