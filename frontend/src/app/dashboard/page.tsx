@@ -80,7 +80,7 @@ export default function DashboardPage() {
       return;
     }
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/sites/${siteId}`, {
+      await fetch(`/api/sites?id=${siteId}`, {
         method: 'DELETE',
         credentials: 'include',
       });

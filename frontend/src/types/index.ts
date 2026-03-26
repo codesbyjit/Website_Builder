@@ -22,6 +22,7 @@ export interface FormField {
 
 export interface Site {
   id: string;
+  userId?: string;
   templateId: string;
   templateName: string;
   siteName: string;
@@ -39,4 +40,30 @@ export interface BuildLog {
   message: string;
   type: 'info' | 'success' | 'error' | 'warning';
   timestamp: string;
+}
+
+export interface User {
+  _id: string;
+  email: string;
+  password: string;
+  createdAt: string;
+}
+
+export interface CreateSiteRequest {
+  templateId: string;
+  siteName: string;
+  details: Record<string, string>;
+}
+
+export interface CreateSiteResponse {
+  success: boolean;
+  siteId: string;
+  status: 'draft' | 'building' | 'deployed' | 'failed';
+  previewUrl?: string;
+  liveUrl?: string;
+  error?: string;
+}
+
+export interface SiteDocument extends Site {
+  _id: string;
 }

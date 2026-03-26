@@ -138,16 +138,20 @@ export default function DetailsForm({ template, editMode = false, siteData }: De
 
     const newErrors: Record<string, string> = {};
 
-    template.formSchema.forEach(f => {
+    currentFields.forEach(f => {
       if (f.type === 'file') {
         if (f.required && !imageFiles[f.id] && !existingImages[f.id]) {
-          newErrors[f.id] = 'Required';
+          newErrors[f.id] = 'Please upload ' + f.label.toLowerCase();
         }
-      } else if (!formData[f.id]?.trim()) {
-        newErrors[f.id] = 'Required';
+      } else if (f.required && !formData[f.id]?.trim()) {
+        newErrors[f.id] = 'Please fill in ' + f.label.toLowerCase();
       }
     });
 
+    if (Object.keys(newErrors).length > 0) {
+      console.log('Validation errors:', newErrors);
+    }
+    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -171,32 +175,14 @@ export default function DetailsForm({ template, editMode = false, siteData }: De
         });
         router.push('/dashboard');
       } else {
-        const siteId = 'site_' + Math.random().toString(36).slice(2, 10);
-
-        const formDataToSend = new FormData();
-        formDataToSend.append('templateId', template.id);
-        formDataToSend.append('siteName', siteId);
-        formDataToSend.append('details', JSON.stringify(formData));
-        
-        Object.entries(imageFiles).forEach(([fieldId, file]) => {
-          formDataToSend.append(fieldId, file);
+        const filteredData: Record<string, string> = {};
+        Object.entries(formData).forEach(([key, value]) => {
+          if (value && value.trim()) {
+            filteredData[key] = value;
+          }
         });
 
-        const apiUrl = typeof window !== 'undefined' 
-          ? (localStorage.getItem('backend_url') || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api')
-          : process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
-
-        const response = await fetch(`${apiUrl}/sites`, {
-          method: 'POST',
-          body: formDataToSend,
-          credentials: 'include',
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Failed to create site');
-        }
+        await api.sites.create(template.id, template.name, filteredData, imageFiles.agentPhoto);
 
         addToast({
           type: 'success',
