@@ -210,7 +210,7 @@ export default function DetailsForm({ template }: DetailsFormProps) {
         <div className="space-y-4 order-first md:order-last">
 
           <Card className="overflow-hidden border border-zinc-800 bg-zinc-900/60">
-            <div className="aspect-[4/3] relative">
+            <div className="aspect-4/3 relative">
 
               <img
                 src={template.thumbnail}

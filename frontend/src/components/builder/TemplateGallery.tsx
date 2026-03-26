@@ -49,13 +49,13 @@ const TemplateGallery = () => {
 
         {/* MINIMAL SEARCH */}
         <div className="relative w-full sm:w-56">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white" />
 
           <Input
             id="template-search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-9 pl-9 pr-16 bg-zinc-900/70 border border-zinc-800 text-sm text-white placeholder:text-zinc-500 focus:ring-0 focus:border-zinc-700 w-full"
+            className="h-9 pl-9 pr-16 bg-white border border-zinc-800 text-sm text-white placeholder:text-zinc-500 focus:ring-0 focus:border-zinc-700 w-full"
           />
 
           {/* Ctrl + K hint - hide on mobile */}

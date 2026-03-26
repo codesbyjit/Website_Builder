@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/authStore';
 import { api } from '@/lib/api';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -35,10 +36,17 @@ export default function LoginPage() {
       <header className="fixed top-0 left-0 right-0 h-14 bg-[#141416] border-b border-[#2A2A2E] z-40">
         <div className="h-full px-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
-            <span className="text-lg font-semibold text-white">Website Builder</span>
+            <Image
+              src="/realty_crm.webp" // Use the imported image object
+              alt="Site Logo"
+              width={30}
+              height={30}
+              priority // Prioritize loading of the logo
+              className='rounded-lg shadow-inner' // Optional: Add rounded corners to the logo
+            />
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-5">
             <span className="text-sm text-[#A1A1AA]">Don&apos;t have an account?</span>
             <Link
               href="/register"
@@ -95,7 +103,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 sm:py-3 px-4 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="w-full py-2.5 sm:py-3 px-4 bg-linear-to-r from-[#6366F1] to-[#8B5CF6] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>

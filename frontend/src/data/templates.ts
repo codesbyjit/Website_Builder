@@ -10,7 +10,7 @@ export const templates: Template[] = [
     features: ['Hero Image', 'Stats Counter', 'Property Listings', 'Blog Section', 'Neighborhoods', 'Client Reviews', 'Contact Form', 'AI Chatbot'],
     deployType: 'github',
     formSchema: [
-      { id: 'siteName', type: 'text', label: 'Site Name (subdomain)', placeholder: 'my-realty', required: true },
+      { id: 'siteName', type: 'text', label: 'Your Name', placeholder: 'my-realty', required: true },
       { id: 'companyName', type: 'text', label: 'Agent/Company Name', placeholder: 'John Smith Real Estate', required: true },
       { id: 'tagline', type: 'text', label: 'Tagline', placeholder: 'Your Trusted Real Estate Partner', required: true },
       { id: 'brokerageName', type: 'text', label: 'Brokerage Name', placeholder: 'Royal LePage', required: false },
@@ -49,10 +49,10 @@ export const templates: Template[] = [
       { id: 'email', type: 'email', label: 'Email', placeholder: 'john@example.com', required: true },
       { id: 'phone', type: 'text', label: 'Phone', placeholder: '+1 (555) 123-4567', required: true },
       { id: 'city', type: 'text', label: 'City', placeholder: 'Toronto', required: true },
-      { id: 'province', type: 'select', label: 'Province', options: ['BC', 'AB', 'SK', 'MB', 'ON', 'QC', 'NB', 'NS', 'PE', 'NL'], required: true },
       { id: 'services', type: 'textarea', label: 'Services (one per line)', placeholder: 'Home Buying\nHome Selling\nInvestment Properties', required: true },
       { id: 'about', type: 'textarea', label: 'About You', placeholder: 'Tell clients about yourself and your experience...', required: true },
       { id: 'accentDark', type: 'color', label: 'Dark Accent Color', required: false },
+      { id: 'province', type: 'select', label: 'Province', options: ['BC', 'AB', 'SK', 'MB', 'ON', 'QC', 'NB', 'NS', 'PE', 'NL'], required: true },
     ],
   },
 ];

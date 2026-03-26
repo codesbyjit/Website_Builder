@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/lib/ThemeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
-  title: "WebForge - Real Estate Website Builder",
+  title: "RealtyBuilder",
   description: "Build professional real estate websites in minutes",
 };
 

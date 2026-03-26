@@ -110,7 +110,7 @@ export default function DashboardPage() {
         ) : sites.length === 0 ? (
 
           /* EMPTY */
-          <Card className="p-8 sm:p-12 border border-zinc-800 bg-zinc-900/60 text-center">
+          <Card className="p-8 sm:p-12 border-dashed bg-zinc-900/40 shadow-inner border-white/20 text-center max-w-lg rounded-lg mx-auto">
             <div className="flex flex-col items-center">
               <div className="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-zinc-800 flex items-center justify-center mb-4">
                 <FolderOpen className="w-5 sm:w-6 h-5 sm:h-6 text-zinc-500" />
@@ -125,7 +125,7 @@ export default function DashboardPage() {
               </p>
 
               <Link href="/builder/templates" className="mt-5">
-                <Button className="bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700">
+                <Button className="bg-zinc-800 hover:bg-zinc-700 shadow-inner text-white border border-zinc-700">
                   Browse Templates
                 </Button>
               </Link>

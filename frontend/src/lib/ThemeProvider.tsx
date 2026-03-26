@@ -25,12 +25,17 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const saved = localStorage.getItem('theme') as Theme;
     if (saved) {
       setTheme(saved);
+      document.documentElement.classList.add(saved);
+    } else {
+      document.documentElement.classList.add('dark');
     }
   }, []);
 
   useEffect(() => {
     if (mounted) {
       localStorage.setItem('theme', theme);
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
     }
   }, [theme, mounted]);
 
