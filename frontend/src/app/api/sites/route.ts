@@ -139,6 +139,16 @@ export async function POST(request: NextRequest) {
     const siteId = generateId();
     const now = new Date().toISOString();
 
+    const agentPhotoFile = formData.get('agentPhoto') as File | null;
+    let imageBuffer: Buffer | null = null;
+    let imageContentType: string | null = null;
+
+    if (agentPhotoFile && agentPhotoFile.size > 0) {
+      const arrayBuffer = await agentPhotoFile.arrayBuffer();
+      imageBuffer = Buffer.from(arrayBuffer);
+      imageContentType = agentPhotoFile.type || 'image/jpeg';
+    }
+
     const sitesCollection = await getSitesCollection();
     const newSite = {
       siteId,
@@ -161,8 +171,8 @@ export async function POST(request: NextRequest) {
       templateId,
       details,
       siteName,
-      undefined,
-      undefined
+      imageBuffer,
+      imageContentType
     );
 
     console.log('Deploy result:', deployResult);
@@ -216,6 +226,16 @@ export async function PUT(request: NextRequest) {
     const detailsStr = formData.get('details') as string;
     const details = detailsStr ? JSON.parse(detailsStr) : {};
 
+    const agentPhotoFile = formData.get('agentPhoto') as File | null;
+    let imageBuffer: Buffer | null = null;
+    let imageContentType: string | null = null;
+
+    if (agentPhotoFile && agentPhotoFile.size > 0) {
+      const arrayBuffer = await agentPhotoFile.arrayBuffer();
+      imageBuffer = Buffer.from(arrayBuffer);
+      imageContentType = agentPhotoFile.type || 'image/jpeg';
+    }
+
     const sitesCollection = await getSitesCollection();
     const site = await sitesCollection.findOne({ siteId: id, userId });
 
@@ -240,7 +260,9 @@ export async function PUT(request: NextRequest) {
       site.siteId,
       site.templateId,
       updatedDetails,
-      site.siteName
+      site.siteName,
+      imageBuffer,
+      imageContentType
     );
 
     let finalStatus = 'building';

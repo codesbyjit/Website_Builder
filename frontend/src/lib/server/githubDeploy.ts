@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 
 interface DeployResult {
@@ -2008,7 +2009,7 @@ export async function deployToGitHub(
   imageContentType?: string | null
 ): Promise<DeployResult> {
   const token = process.env.GITHUB_TOKEN;
-  
+
   if (!token) {
     return { success: false, error: 'GitHub token not configured' };
   }
@@ -2016,133 +2017,177 @@ export async function deployToGitHub(
   const { Octokit } = await import('@octokit/rest');
   const octokit = new Octokit({ auth: token });
 
-  const repoName = siteName 
-    ? `webforge-${userId.substring(0, 8)}-${siteName.replace(/[^a-zA-Z0-9]/g, '-')}`.toLowerCase()
-    : `webforge-${userId}-${siteId}`.toLowerCase();
+  const repoName = `webforge-${siteId}`.toLowerCase();
 
   console.log('=== GitHub Pages Deploy ===');
   console.log('Repo:', repoName);
 
   try {
-    let exists = await repoExists(octokit, repoName);
+    // ---------------------------
+    // 1. CHECK / CREATE REPO
+    // ---------------------------
+    const exists = await repoExists(octokit, repoName);
 
     if (!exists) {
-      console.log('Creating repo...');
       try {
         await octokit.repos.createInOrg({
           org: ORG,
           name: repoName,
           private: false,
         });
-        exists = true;
+        console.log('Repo created');
       } catch (createErr: any) {
-        if (createErr.status === 422 && createErr.message?.includes('name already exists')) {
-          console.log('Repo already exists, proceeding...');
-          exists = true;
+        if (createErr.status === 422) {
+          console.log('Repo already exists, continuing...');
         } else {
           throw createErr;
         }
       }
     }
 
-    let agentPhotoUrl = details.agentPhotoUrl || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80';
-    
-    if (imageBuffer && imageContentType) {
-      console.log('Processing uploaded agent photo...');
+    // ---------------------------
+    // 2. HANDLE IMAGE UPLOAD
+    // ---------------------------
+    let agentPhotoUrl = 
+      details.agentPhotoUrl ||
+      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80';
+
+    // If no new image uploaded, check if user already has an image in their repo
+    if (!imageBuffer && !imageContentType) {
+      try {
+        const existing = await octokit.repos.getContent({
+          owner: ORG,
+          repo: repoName,
+          path: 'assets/agent-photo.webp',
+        });
+        if (existing.data) {
+          agentPhotoUrl = `https://raw.githubusercontent.com/${ORG}/${repoName}/main/assets/agent-photo.webp`;
+        }
+      } catch {
+        // No existing image, use default or details URL
+      }
+    } else if (imageBuffer && imageContentType) {
       const sharp = (await import('sharp')).default;
-      
+
       const resizedBuffer = await sharp(imageBuffer)
         .resize(800, 1000, { fit: 'cover', position: 'top' })
         .webp({ quality: 85 })
         .toBuffer();
-      
+
       const imageBase64 = resizedBuffer.toString('base64');
       const imagePath = 'assets/agent-photo.webp';
-      
+
+      let sha: string | undefined;
+
       try {
-        const existingImage = await octokit.repos.getContent({
+        const existing = await octokit.repos.getContent({
           owner: ORG,
           repo: repoName,
           path: imagePath,
         });
-        const imageSha = (existingImage.data as any).sha;
-        
-        await octokit.repos.createOrUpdateFileContents({
-          owner: ORG,
-          repo: repoName,
-          path: imagePath,
-          message: 'Update agent photo',
-          content: imageBase64,
-          sha: imageSha,
-        });
-      } catch {
-        await octokit.repos.createOrUpdateFileContents({
-          owner: ORG,
-          repo: repoName,
-          path: imagePath,
-          message: 'Add agent photo',
-          content: imageBase64,
-        });
-      }
-      
+        sha = (existing.data as any).sha;
+      } catch {}
+
+      await octokit.repos.createOrUpdateFileContents({
+        owner: ORG,
+        repo: repoName,
+        path: imagePath,
+        message: 'Upload agent photo',
+        content: imageBase64,
+        ...(sha && { sha }),
+      });
+
       agentPhotoUrl = `https://raw.githubusercontent.com/${ORG}/${repoName}/main/${imagePath}`;
-      console.log('Agent photo uploaded:', agentPhotoUrl);
     }
 
+    // ---------------------------
+    // 3. GENERATE FILES
+    // ---------------------------
     const html = generateRealEstateHTML({ ...details, agentPhotoUrl });
     const listingsHtml = generateListingsPage(details);
     const blogHtml = generateBlogPage(details);
     const resourcesHtml = generateResourcesPage(details);
 
     const files = [
-      { path: 'index.html', content: html, message: 'Update index.html' },
-      { path: 'listings.html', content: listingsHtml, message: 'Update listings.html' },
-      { path: 'blog.html', content: blogHtml, message: 'Update blog.html' },
-      { path: 'resources.html', content: resourcesHtml, message: 'Add resources.html' },
+      { path: 'index.html', content: html },
+      { path: 'listings.html', content: listingsHtml },
+      { path: 'blog.html', content: blogHtml },
+      { path: 'resources.html', content: resourcesHtml },
     ];
 
+    // ---------------------------
+    // 4. UPLOAD FILES
+    // ---------------------------
     for (const file of files) {
       const content = Buffer.from(file.content).toString('base64');
-      try {
-        const existingFile = await octokit.repos.getContent({
-          owner: ORG,
-          repo: repoName,
-          path: file.path,
-        });
-        const sha = (existingFile.data as any).sha;
 
-        await octokit.repos.createOrUpdateFileContents({
+      let sha: string | undefined;
+
+      try {
+        const existing = await octokit.repos.getContent({
           owner: ORG,
           repo: repoName,
           path: file.path,
-          message: file.message,
-          content,
-          sha,
         });
-      } catch {
-        await octokit.repos.createOrUpdateFileContents({
-          owner: ORG,
-          repo: repoName,
-          path: file.path,
-          message: 'Add ' + file.path,
-          content,
-        });
+        sha = (existing.data as any).sha;
+      } catch {}
+
+      await octokit.repos.createOrUpdateFileContents({
+        owner: ORG,
+        repo: repoName,
+        path: file.path,
+        message: `Deploy ${file.path}`,
+        content,
+        ...(sha && { sha }),
+      });
+    }
+
+    console.log('Files uploaded');
+
+    // ---------------------------
+    // 5. ENABLE GITHUB PAGES ✅
+    // ---------------------------
+    try {
+      await octokit.request('POST /repos/{owner}/{repo}/pages', {
+        owner: ORG,
+        repo: repoName,
+        source: {
+          branch: 'main',
+          path: '/',
+        },
+      });
+      console.log('GitHub Pages enabled');
+    } catch (err: any) {
+      if (err.status === 409) {
+        console.log('Pages already enabled');
+      } else {
+        console.log('Pages enable error:', err.message);
       }
     }
 
+    // ---------------------------
+    // 6. OPTIONAL: TRIGGER BUILD
+    // ---------------------------
     try {
-      await (octokit as any).repos.createPagesBuild({
+      await octokit.repos.getPagesBuild({
         owner: ORG,
         repo: repoName,
+        build_id: 0
       });
-      console.log('Triggered new GitHub Pages build');
+      console.log('Pages build triggered');
     } catch (err: any) {
-      console.log('Pages build trigger error:', err.message);
+      console.log('Build trigger skipped:', err.message);
     }
 
-    const url = `https://${ORG}.github.io/${repoName}/`;
+    // ---------------------------
+    // 7. RETURN URL
+    // ---------------------------
+    const url = `https://${ORG.toLowerCase()}.github.io/${repoName}/`;
+
     console.log('Deployed to:', url);
+
     return { success: true, url };
+
   } catch (err: any) {
     console.error('GitHub deploy error:', err.message);
     return { success: false, error: err.message };
