@@ -131,14 +131,15 @@ export default function DetailsForm({ template, editMode = false, siteData }: De
   }, [formData]);
 
   /* ---------------- VALIDATION ---------------- */
-  const validate = () => {
+  const validate = (currentStepFields?: FormField[]) => {
     if (editMode) {
       return true;
     }
 
     const newErrors: Record<string, string> = {};
+    const fieldsToValidate = currentStepFields || template.formSchema;
 
-    template.formSchema.forEach(f => {
+    fieldsToValidate.forEach(f => {
       if (f.type === 'file') {
         if (f.required && !imageFiles[f.id] && !existingImages[f.id]) {
           newErrors[f.id] = 'Required';
@@ -379,9 +380,16 @@ export default function DetailsForm({ template, editMode = false, siteData }: De
               </Button>
 
               <Button
+                type="button"
                 onClick={() => {
-                  if (!validate()) return;
-                  step === steps.length - 1 ? handleSubmit() : setStep(s => s + 1);
+                  const isValid = validate(currentFields);
+                  console.log('Validate result:', isValid, 'Errors:', errors);
+                  if (!isValid) return;
+                  if (step === steps.length - 1) {
+                    handleSubmit();
+                  } else {
+                    setStep(s => s + 1);
+                  }
                 }}
                 className="bg-indigo-500 hover:bg-indigo-600"
               >

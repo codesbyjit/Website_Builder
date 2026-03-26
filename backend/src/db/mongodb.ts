@@ -1,17 +1,21 @@
 import { MongoClient, Db } from 'mongodb';
 
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/webforge';
-const client = new MongoClient(uri);
-
-let db: Db;
+let client: MongoClient | null = null;
+let db: Db | null = null;
 
 export async function connectToDatabase(): Promise<Db> {
   if (db) {
     return db;
   }
   
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error('MONGODB_URI not defined in environment');
+  }
+  
+  client = new MongoClient(uri);
   await client.connect();
-  db = client.db();
+  db = client.db("RealtyBuilder");
   console.log('Connected to MongoDB');
   
   return db;
@@ -26,5 +30,3 @@ export async function getSitesCollection() {
   const database = await connectToDatabase();
   return database.collection('sites');
 }
-
-export default client;

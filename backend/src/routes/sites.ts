@@ -18,7 +18,7 @@ const generateId = () => `site_${Math.random().toString(36).substring(2, 11)}`;
 async function waitForSiteLive(url: string, maxAttempts = 30, intervalMs = 5000): Promise<boolean> {
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
-      const response = await axios.get(url, { timeout: 10000 });
+      const response = await axios.get(url, { timeout: 30000 });
       if (response.status === 200) {
         console.log(`Site is live! Attempt ${attempt}/${maxAttempts}`);
         return true;
@@ -209,7 +209,7 @@ router.put('/:id', authMiddleware, upload.single('agentPhoto'), async (req: Auth
       site.userId,
       site.siteId,
       site.templateId,
-      details,
+      { ...site.details, ...details, agentPhotoUrl: site.details?.agentPhotoUrl },
       site.siteName,
       req.file ? req.file.buffer : undefined,
       req.file ? req.file.mimetype : undefined
